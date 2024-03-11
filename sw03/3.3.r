@@ -5,9 +5,13 @@ par(mfrow = c(2, 1))
 
 plot(income$Educ, income$Income2005)
 abline(lm(Income2005 ~ Educ, data = income), col = "red", lwd = 3)
+# 4.1 corr
+cor(income$Educ, income$Income2005)
 
 plot(income$AFQT, income$Income2005)
 abline(lm(Income2005 ~ AFQT, data = income), col = "red")
+# 4.1 corr
+cor(income$AFQT, income$Income2005)
 
 # Find a & b
 lm(Income2005 ~ Educ, data = income)
