@@ -206,3 +206,107 @@ t.test(x, y, alternative = "two.sided", mu = 0, paired = FALSE, conf.level = 0.9
 ```
 
 # SW11 - lineare regression
+
+Streudiagramm:
+```{r}
+plot(Verkauf ~ TV, col = "darkcyan", xlab = "TV", ylab = "Verkauf")
+```
+
+Zusammenhang schaetzen:
+Y ≈ β0 + β1X1 + β2X2 + . . . + βpXp
+
+- Intercept: y-Achsenabschnitt
+- TV: Steigung: Y ≈ 7.03 + 0.0475X -> pro 1000 mehr Werbeausgaben, gibt es 47.5 mal mehr Verkaeufe
+- keine Werbung, 7.03 Verkauf
+
+```{r}
+lm(Verkauf ~ TV)
+```
+
+Graphisch:
+```{r}
+plot(TV, Verkauf, col = "darkcyan", xlab = "TV", ylab = "Verkauf", pch = 20) 
+abline(lm(Verkauf ~ TV), col = "blue")
+```
+
+Vertrauensintervall der einzelnen Werte 95%:
+```{r}
+confint(lm(Verkauf ~ TV), level = 0.95)
+```
+
+- p-Wert: kleiner 0.05 -> H0=kein Zusammenhang verwerfen -> Zusamenhang
+- R^2: Welche Anteil der Variablitaet in Y kann mit Modell
+erklaert werden in %.
+```{r}
+cor(x,y)
+summary(lm(y~x)$r.squared
+var(y)
+```
+
+# SW12 - Multiple lineare Regression
+
+Y = β0 + β1X1 + β2X2 + . . . + βpXp + ε
+
+Nur Koeffizienten in der Gleichung:
+```{r}
+coef(lm(Einkommen ~ Ausbildung + Erfahrung))
+```
+Interpretation:
+
+- keine Ausbildung & Erfahrung: Lohn=-50k (praktisch keinen Sinn)
+- const Erfahrung, pro Ausbildungsjahr mehr += 5896.-
+- const Ausbildung, pro Erfahrungsjahr mehr += 173.-
+
+
+Alles:
+```{r}
+summary(lm(Einkommen ~ Ausbildung + Erfahrung))
+```
+
+Korrelationen zwischen Daten:
+```{r}
+cor(data.frame(TV, Radio, Zeitung, Verkauf))
+```
+
+```{r}
+predict(lm(Verkauf ~ TV + Radio), interval = "confidence", data.frame(TV = 100, Radio = 20) )
+```
+
+Interaktionsterm:
+medv = β0 + β1 · lstat + β2 · age + β12 · lstat*age
+```{r}
+lm(medv ~ lstat * age, data = Boston)
+```
+
+# SW 13 - Qualitative (erklaerende) Variablen
+
+Streudiagramm, um Zusammenhaenge zu erkennen:
+```{r}
+pairs(~Balance + Age + Cards + Education + Income + Limit + Rating, data = Credit, pch = ".", col = "darkcyan")
+```
+
+```{r}
+summary(lm(Sales ~ Price + Urban + US, data=Carseats))
+# 13.04: wenn nicht Urban und nicht in US und Preis=0, dann werden 13 Kindersitze verkauft
+# Price um 1 hoeher: -0.05 weniger Carseats verkauft
+# wenn urban: 0.02 Kindersitze weniger verkauft: P hoch also zufaellig
+# wenn in US: 1.2 Kindersitzer mehr verkauft
+
+# Gleichungsform:
+# urban: x2i = {1=Urban, 0=Land}
+# US: x3i = {1 falls in USA, 0=not-USA}
+#yi = b0 - Price*b1 - x2i*b2 + x3i*b3 + ei
+# + b2 + b3 +ei -> urban in usa
+# + b3 + ei: rural in USA
+# + b2 + ei: urban nicht in USA
+# ei: rural nicht in usa
+
+# H0 verwerfen: fuer Price und US (p sehr klein)
+
+# kleineres Modell mit nur passenden Praedikatioren:
+summary(lm(Sales ~ Price + US, data=Carseats))
+# US: x3i = {1 falls in USA, 0=not-USA}
+#yi = b0 - Price*b1 - x2i*b2 + ei
+# Zusammenhang ist gegeben, aber R^2: 0.23 -> sehr schlecht
+# nur 23% der Variabilitaets kann mit Modell erklaert werden
+```
