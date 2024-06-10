@@ -143,14 +143,16 @@ Finde P(Sn<= 80):
 ```{r}
 pnorm(q = 80, mean = 50 * 1.5, sd = sqrt(50) * 0.3)
 ```
+sd=20, n=16, mean=100
 N ( 100, 20^2/ 16)  = N (100, 25)
 Finde P(X16 <=104):
 ```{r}
 pnorm(q = 104, mean = 100, sd = 20/sqrt(16)
 ```
-Finde P(98<-X16<=104):
+Finde P(98<=X16<=104), n=16, sd=20:
 ```{r}
-pnorm(q = 104, mean = 100, sd = 20/sqrt(16)) - pnorm(98, 100, 20/sqrt(16)
+pnorm(q = 104, mean = 100, sd = 20/sqrt(16)) - pnorm(98, 100, 20/sqrt(16))
+pnorm(q = 2200, mean = 2000, sd = 8000/sqrt(1000)) - pnorm(2100, 2000, 8000/sqrt(1000))
 ```
 
 # SW9 - Hypothesentest, z-Test, t-Test
