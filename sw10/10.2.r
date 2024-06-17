@@ -13,6 +13,6 @@ a <- c(120, 265, 157, 187, 219, 288, 156, 205, 163)
 b <- c(127, 281, 160, 185, 220, 298, 167, 203, 171)
 
 t.test(a, b, paired = T, alternative = "less")
-
+#a-b<0 also less, da difference < 0
 # p = 0.01168 < alpha, also Nullhypothese verwerfen
 # B misst also statistisch mehr

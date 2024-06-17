@@ -15,6 +15,7 @@ sd(zh - basel) # 26.3
 
 # Test (t-test, weil normalverteilt)
 alpha <- 0.05
+# a- b > 0, difference greater than 0
 t.test(zh, basel, paired = TRUE, alternative = "greater")
 # p = 0.04364 < alpha, Null wird verworfen
 
